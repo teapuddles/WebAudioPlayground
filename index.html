@@ -1,12 +1,25 @@
 <body>
     <h1>Here's a sound for ya</h1>
-
+    <button id="clickMe">Click Me</button>
     <script>
-        let context = new (window.AudioContext || window.webkitAudioContext)()
-    
+        const btn = document.getElementById("clickMe")
+        btn.addEventListener('click', playSound)
+        // creating audio context is nesessary to building a sound. 
+        // It's like creating the canvas for a digital artpiece. 
+        function playSound(){
+        let context = new AudioContext()
+        
+        // Next you need to connect the context to an oscillator 
+        let oscillator = context.createOscillator()
+
+        // Then connect the oscillator the the audio context destination
+        // destination is our keyword in the webaudio api
+        oscillator.connect(context.destination)
+        oscillator.start()
+        }
         
     </script>
-    
+
 </body>
 
 
