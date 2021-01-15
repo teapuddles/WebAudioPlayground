@@ -3,7 +3,7 @@
     <button id="clickMe">Click Me</button>
     <script>
         const btn = document.getElementById("clickMe")
-        btn.addEventListener('click', playSound)
+        .addEventListener('click', playSound)
         // creating audio context is nesessary to building a sound. 
         // It's like creating the canvas for a digital artpiece. 
         function playSound(){
@@ -16,6 +16,10 @@
         // destination is our keyword in the webaudio api
         oscillator.connect(context.destination)
         oscillator.start()
+        // Create a timeout so the sound doesn't go on forever. 
+        setTimeout(function(){
+            oscillator.stop()
+        }, 5000);
         }
         
     </script>
