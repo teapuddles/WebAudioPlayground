@@ -22,10 +22,12 @@
         filter.connect(context.destination)
 
         // play with our filters!
-        filter.type = 'highpass'
+        filter.type = 'lowpass'
         // settargettime takes in 3 arguments.
-        // 1. Startpoint- 
-        filter.frequency.setTargetAtTime()
+        // 1. target- target frequency cutoff, so a highpass filter would only pass through sounds above a frequency of 2000
+        // 2. startTime- When will this filter start- context.currentTime
+        // 3. timeConstant- Constant time to get to target value (1). Larger the number, slower the transition.
+        filter.frequency.setTargetAtTime(2000, context.currentTime, 0)
 
         // start the sound
         oscillator.start()
