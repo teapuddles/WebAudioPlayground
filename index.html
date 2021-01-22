@@ -2,21 +2,34 @@
     <h1>Here's a sound for ya</h1>
     <button id="clickMe">Click Me</button>
     <script>
+        // we need a button created beause most browsers require a user gesture to access sound. 
         const btn = document.getElementById("clickMe")
         .addEventListener('click', playSound)
-        // creating audio context is nesessary to building a sound. 
-        // It's like creating the canvas for a digital artpiece. 
-        function playSound(){
-        let context = new AudioContext()
         
-        // Next you need to connect the context to an oscillator 
+        function playSound(){
+            // all webaudio api stuff starts with audiocontext
+        let context = new AudioContext()
+            // and the creation of an oscillator
         let oscillator = context.createOscillator()
+            // the destination attribute is given to us from Audio Context. 
+            // We need to connect our oscillatior to it's 'destination' (speakers) in order to produce sound
 
-        // Then connect the oscillator the the audio context destination
-        // destination is our keyword in the webaudio api
-        oscillator.connect(context.destination)
+            // before our sound reaches its destination we can add a filter. 
+        let filter = context.createBiquadFilter()
+            // instead of connecting our oscillator directly to the speakers, first we pass it to the filter
+        oscillator.connect(filter)
+            // then we connect the filter to our 'destination'
+        filter.connect(context.destination)
+
+        // play with our filters!
+        filter.type = 'highpass'
+        // settargettime takes in 3 arguments.
+        // 1. Startpoint- 
+        filter.frequency.setTargetAtTime()
+
+        // start the sound
         oscillator.start()
-        // Create a timeout so the sound doesn't go on forever. 
+        // end the sound with timeout
         setTimeout(function(){
             oscillator.stop()
         }, 5000);
@@ -25,6 +38,43 @@
     </script>
 
 </body>
+
+
+
+
+
+
+
+
+
+<!-- 
+<body>
+    <h1>Here's a sound for ya</h1>
+    <button id="clickMe">Click Me</button>
+    <script>
+        // we need a button created beause most browsers require a user gesture to access sound. 
+        const btn = document.getElementById("clickMe")
+        .addEventListener('click', playSound)
+        
+        function playSound(){
+            // all webaudio api stuff starts with audiocontext
+        let context = new AudioContext()
+            // and the creation of an oscillator
+        let oscillator = context.createOscillator()
+            // the destination attribute is given to us from Audio Context. 
+            // We need to connect our oscillatior to it's 'destination' in order to produce sound
+        oscillator.connect(context.destination)
+        // start the sound
+        oscillator.start()
+        // end the sound with timeout
+        setTimeout(function(){
+            oscillator.stop()
+        }, 5000);
+        }
+        
+    </script>
+
+</body> -->
 
 
 
